@@ -15,7 +15,7 @@ Automates system maintenance on Arch Linux: updates `pacman` and AUR packages, c
 ## Usage
 
 ```bash
-~/scripts/actualizar.sh
+~/scripts/maintenance.sh
 ```
 ---
 
