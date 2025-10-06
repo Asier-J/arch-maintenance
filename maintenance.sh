@@ -27,9 +27,8 @@ echo "==> Searching for pacman orphans..."
 orphans=$(pacman -Qtdq 2>/dev/null || true)
 
 if [[ -n "$orphans" ]]; then
-  echo "Orphans to delete: "
-  echo "$orphans"
-  sudo pacman -Rns --noconfirm $(orphans) >/dev/null 2>&1
+  echo "Deleting orphans... "
+  sudo pacman -Rns --noconfirm $orphans >/dev/null 2>&1
 else
   echo "There are no orphans."
 fi
