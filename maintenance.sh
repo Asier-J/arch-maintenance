@@ -1,6 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
+if [[ ! -f ~/.config/systemd/user/arch-maintenance.service ]]; then
+	echo ".service doesn't exist, creating it..."
+	cat install-service.sh > ~/.config/systemd/user/arch-maintenance.service
+	echo "enabling it..."
+	systemctl --user daemon-reload
+	systemctl --user enable arch-maintenance.service
+	echo "arch-maintenance.service created and enabled!"
+else
+	echo "arch-maintenance.service already exists"
+fi
+
 echo "==> updating pacman..."
 sudo pacman -Syu --noconfirm >/dev/null 2>&1
 
