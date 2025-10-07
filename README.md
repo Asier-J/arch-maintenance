@@ -46,5 +46,5 @@ your/path/here/maintenance.sh
 
 ---
 ## To-do list
-[x] Implement install script to set it up as a service automatically.
-[ ] Implement logs
+- [x] Implement install script to set it up as a service automatically.
+- [ ] Implement logs
