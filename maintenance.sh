@@ -1,19 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
-if [[ ! -f ~/.config/systemd/user/arch-maintenance.service ]]; then
-	echo ".service doesn't exist, creating it..."
-	cat install-service.sh > ~/.config/systemd/user/arch-maintenance.service
+if [[ ! -f /etc/systemd/system/arch-maintenance.service ]]; then
+	echo "service doesn't exist, creating it..."
+	sudo bash -c 'cat install-service.sh > /etc/systemd/system/arch-maintenance.service'
 	echo "enabling it..."
-	systemctl --user daemon-reload
-	systemctl --user enable arch-maintenance.service
+	sudo systemctl daemon-reload
+	sudo systemctl enable arch-maintenance.service
 	echo "arch-maintenance.service created and enabled!"
 else
 	echo "arch-maintenance.service already exists"
 fi
 
 echo "==> updating pacman..."
-sudo pacman -Syu --noconfirm >/dev/null 2>&1
+pacman -Syu --noconfirm >/dev/null 2>&1
 
 echo "==> updating yay...(this will probably take a while)" #it does take quite a while
 
@@ -32,14 +32,14 @@ yay -Sc --noconfirm >/dev/null 2>&1
 
 
 echo "==> Cleaning pacman cache"
-sudo pacman -Sc --noconfirm >/dev/null 2>&1
+pacman -Sc --noconfirm >/dev/null 2>&1
 
 echo "==> Searching for pacman orphans..."
 orphans=$(pacman -Qtdq 2>/dev/null || true)
 
 if [[ -n "$orphans" ]]; then
   echo "Deleting orphans... "
-  sudo pacman -Rns --noconfirm $orphans >/dev/null 2>&1
+  pacman -Rns --noconfirm $orphans >/dev/null 2>&1
 else
   echo "There are no orphans."
 fi
