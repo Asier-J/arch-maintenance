@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-
+USR="user" #put your user here!
 if [[ ! -f /etc/systemd/system/arch-maintenance.service ]]; then
 	echo "service doesn't exist, creating it..."
 	sudo bash -c 'cat install-service.sh > /etc/systemd/system/arch-maintenance.service'
@@ -15,20 +15,20 @@ fi
 echo "==> updating pacman..."
 pacman -Syu --noconfirm >/dev/null 2>&1
 
-echo "==> updating yay...(this will probably take a while)" #it does take quite a while
+echo "==> updating yay...(this will probably take a while)" #it does take quite a while the first time if you have not updated in a while
 
 if nc -z -w1 aur.archlinux.org 443 >/dev/null 2>&1; then
-    yay -Syu --noconfirm >/dev/null 2>&1
+    sudo -u "$USR" yay -Syu --noconfirm >/dev/null 2>&1 || echo "Yay update failed..."; yay_msg="Yay did not update"; icon="flag-red"
     yay_msg="Yay updated!"
     icon="dialog-ok"
 else
-    echo "Aur.archlinux.org is down, retry in a few hours..."
+    echo "aur.archlinux.org is down, retry in a few hours..."
     yay_msg="Yay did not update."
     icon="flag-red"
 fi
     
 echo "==> Cleaning yay cache"
-yay -Sc --noconfirm >/dev/null 2>&1
+sudo -u "$USR" yay -Sc --noconfirm >/dev/null 2>&1
 
 
 echo "==> Cleaning pacman cache"
