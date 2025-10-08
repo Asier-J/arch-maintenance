@@ -13,21 +13,15 @@ Automates system maintenance on Arch Linux: updates `pacman` and AUR packages, c
 ---
 
 ## Usage
-**Allow the script to run pacman and yay via sudo without requiring a password:**
-``` bash
-sudo visudo
-your-username ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/yay
-#replace your-username with the actual username
-```
-
-**This permits only `/usr/bin/pacman` and `/usr/bin/yay` to be run with sudo without a password. Do NOT use NOPASSWD: ALL unless you understand the security implications.**
 
 Then, execute the bash script for the first time:
 ```bash
 chmod +x your/path/here/maintenance.sh
-your/path/here/maintenance.sh
+sudo your/path/here/maintenance.sh
 #replace your/path/here with your actual path
 ```
+You only need `sudo` for the initial setup. After that, the system service runs automatically with root privileges.
+
 ---
 
 ## What does it do?
