@@ -13,7 +13,8 @@ Automates system maintenance on Arch Linux: updates `pacman` and AUR packages, c
 ---
 
 ## Usage
-
+First, modify the path at `install-service.sh`, at `ExecStart=/your/path/here/maintenance.sh`. 
+**If not done properly, it won't work!**
 Then, execute the bash script for the first time:
 ```bash
 chmod +x your/path/here/maintenance.sh
