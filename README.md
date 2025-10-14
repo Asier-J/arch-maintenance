@@ -42,4 +42,4 @@ You only need `sudo` for the initial setup. After that, the system service runs 
 ---
 ## To-do list
 - [x] Implement install script to set it up as a service automatically.
-- [ ] Implement logs
+- [x] Implement logs
