@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-USR="user" #put your user here!
+USR="asier" #put your user here!
 UID_USER=$(id -u "$USR")
 DBUS_ADDR="unix:path=/run/user/$UID_USER/bus"
 if [[ ! -f /etc/systemd/system/arch-maintenance.service ]]; then
@@ -33,6 +33,12 @@ else
   yay_msg="Yay did not update."
   icon="flag-red"
 fi
+
+echo "==> updating flatpak..."
+sudo flatpak update -y >>/var/log/arch-maintenance.log || echo "flatpak update failed, continuing..."
+
+echo "==> Cleaning flatpak..."
+sudo flatpak uninstall --unused -y && flatpak repair --user || echo "flatpak cleanup failed, continuing..."
 
 echo "==> Cleaning yay cache"
 sudo -u "$USR" yay -Sc --noconfirm >>/var/log/arch-maintenance.log || echo "yay cache cleanup failed, continuing..."
