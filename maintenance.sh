@@ -36,6 +36,7 @@ fi
 
 echo "==> updating flatpak..."
 sudo flatpak update -y >>/var/log/arch-maintenance.log || echo "flatpak update failed, continuing..."
+sudo -u "$USR" flatpak update --user -y >>/var/log/arch-maintenance.log || echo "flatpak user update failed, continuing..."
 
 echo "==> Cleaning flatpak..."
 sudo flatpak uninstall --unused -y && flatpak repair --user || echo "flatpak cleanup failed, continuing..."
